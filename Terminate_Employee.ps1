@@ -2,10 +2,10 @@
 $termuser = read-host "ENTER THE USERNAME OF THE PERSON TO BE TERMINATED"
 
 # MOVE THE AD USER ACCOUNT TO THE DESIGNATED OU 
-Get-ADObject $termuser | Move-ADObject -TargetPath "OU=DISABLED-USERS,DC=fakedomain,DC=LOCAL" -verbose -confirm 
+Get-ADuser $termuser | Move-ADuser -TargetPath "OU=DISABLED-USERS,DC=fakedomain,DC=LOCAL" -verbose -confirm 
 
 # DISABLE THE AD USER ACCOUNT 
-Disable-ADAccount -Identity  $termuser -verbose -confirm 
+Disable-ADuser -Identity  $termuser -verbose -confirm 
 
 # ADD DESCRIPTION TO TERMINATED USER "TERMINATED XX.XX.XX - CURRENT USER"
 $terminatedby = $env:username
