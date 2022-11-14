@@ -2,24 +2,18 @@
 $termuser = read-host "ENTER THE USERNAME OF THE PERSON TO BE TERMINATED"
 
 # MOVE THE AD USER ACCOUNT TO THE DESIGNATED OU 
-Get-ADuser $termuser | Move-ADuser -TargetPath "OU=DISABLED-USERS,DC=fakedomain,DC=LOCAL" -verbose -confirm 
+Get-ADUSER $termuser | Move-ADOBJECT -TargetPath "OU=DISABLED-USERS,DC=FAKEDOMAIN,DC=LOCAL" -verbose -confirm 
 
 # DISABLE THE AD USER ACCOUNT 
-Disable-ADuser -Identity  $termuser -verbose -confirm 
+Disable-ADACCOUNT -Identity  $termuser -verbose -confirm 
 
 # ADD DESCRIPTION TO TERMINATED USER "TERMINATED XX.XX.XX - CURRENT USER"
 $terminatedby = $env:username
-$termDate = get-date -uformat "%m.%d.%YY"
+$termDate = get-date -uformat "%m.%d.%Y"
 $termUserDesc = "Terminated " + $termDate + " - " + $terminatedby
 set-ADUser $termuser -Description $termUserDesc 
 write-host "* " $termuser "description set to" $termUserDesc"
-
-
-
-
-
-
-
+"
 
 # ASCII IMAGE POP UP OF THE TERMINATOR 
 
